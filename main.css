@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-image: url("https://cdn.sanity.io/images/osxefs9j/production/606fa56026c03c529276ac1faf0f051f860311cb-1280x853.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurece usando un color de fondo */
+    background-blend-mode: multiply; /* Mezcla el color con la imagen */
+}
+
+nav {
+    background-color: rgba(50, 77, 45, 0.85);
+    height: 55px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img {
+    width: auto;
+    height: 80%;
+    margin-left: 20px;
+    display: flex;
+    object-fit: contain; /*Se adapta al nav*/
+}
+
+nav ul.sub-menu {
+    color: black;
+    font-family: 'poppins-nav';
+    font-size: 17px;
+    text-decoration: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+nav ul li{
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    border-radius: 10px
+}
+
+nav ul li a:visited {
+    color: #FFFFFF; /* Color del enlace después de haber sido visitado */
+}
+
+nav ul li a:hover {
+    background-color: #2d4127; /* Cambio de color al pasar el ratón */
+    border-radius: 10px; /* Radio del borde al pasar el ratón */
+}
+
+/*Center*/
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    margin: 0 300px;
+}
+
+.text{
+    font-size: 3.5rem;
+    font-family: Mulish, sans-serif;
+    color: #fff;
+}

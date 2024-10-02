@@ -1,0 +1,84 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #e0f2f1;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.col-md-6 {
+    display: flex;
+    grid-template-columns: repeat(5, 1fr); /* Cuatro columnas */
+    gap: 1px;
+    padding: 10px;
+    margin: 10px;
+    justify-content: center;
+}
+
+.table {
+    width: 100%; /* Ajusta el ancho completo de la tabla */
+    border-collapse: collapse;
+    width: 830px;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd; /* Bordes entre celdas */
+}
+
+.table thead {
+    background-color: #f0f0f0; /* Fondo para el encabezado */
+}
+
+.table tbody tr:nth-child(1) {
+    border-bottom: 2px solid #ccc; /* Línea divisoria debajo de la primera fila */
+}
+
+.table tbody tr:hover {
+    background-color: #f9f9f9; /* Efecto hover en las filas */
+}
+
+form, h1{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+form{
+    gap: 20px;
+}
+
+input{
+    padding: 5px;
+    width: 20%;
+    border-radius: 10px;
+}
+
+a{
+    text-decoration: none;
+    background-color: #f0e9e9;
+    width: 160px;
+    height: 30px;
+    border-radius: 10px;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    border: 0.1px solid #000;
+}
+
+a:hover{
+    background-color: #e0dfda;
+}
+
+button{
+    border-radius: 10px;
+    width: 60x;
+    cursor: pointer;
+    border: 0.5px solid #000;
+}
+
+button:hover{
+    background-color: #e0dfda;
+}

@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "poppins-nav";
+    src: url("fuentes/Poppins/Poppins-SemiBold.ttf") format(truetype);
+}
+
+@font-face {
+    font-family: "open-form";
+    src: url("main/fuentes/Open_Sans/static/OpenSans-Regular.ttf") format(truetype);
+}
+
+@font-face {
+    font-family: "poppins-form";
+    src: url("fuentes/Poppins/Poppins-SemiBold.ttf") format(truetype);
+}
+
+
+/*#4CAF50 ojo este color*/

@@ -1,0 +1,105 @@
+body{
+    background-image: url(fondo2.jpeg);
+    background-position: center center;
+    background-repeat: no repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h1{
+    color: green;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+form{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #515050;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(9, 9, 9);
+}
+label{
+    display: block;
+    margin-bottom: 15px;
+    color: #fff;
+    font-size: 20PX;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+input[type="number"]{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+}
+
+input[type="email"]{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+}
+
+.TD{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+}
+
+input[type="text"], input[type="password"]{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+button[type="submit"]{
+    width: 100%;
+    height: 40px;
+    background-color: limegreen;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.login{
+    background-color: rgb(50, 250, 50);
+    color: #000;
+    border: 1px solid #5d5c5c;
+    border-radius: 3px;
+    text-decoration: none;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.encabezado{
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.atras{
+    text-decoration: none;
+    font-size: 19px;
+    color: #fff;
+    background-color: limegreen;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 4px;
+    border: none;
+}
+

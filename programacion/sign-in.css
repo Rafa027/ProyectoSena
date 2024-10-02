@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-image: url("https://cdn.sanity.io/images/osxefs9j/production/606fa56026c03c529276ac1faf0f051f860311cb-1280x853.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurece usando un color de fondo */
+    background-blend-mode: multiply; /* Mezcla el color con la imagen */
+    display: flex;
+    justify-content: center;
+    direction: column;
+    align-items: center;
+}
+
+
+h2 {
+    font-family: "poppins-nav";
+    color: #fff;
+}
+
+img {
+    width: 250px;
+    height: 100px;
+}
+
+.sign-in-one {
+    margin-top: 60px;
+    background-color: rgba(11, 16, 10, 0.8)  /*rgba(11, 16, 10, 0.8) 0B100A*/;
+    width: 500px;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente dentro del contenedor */
+    justify-content: center; 
+    border-radius: 50px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los inputs y enlaces dentro del formulario */
+}
+input, a {
+    font-family: 'open-form';
+    text-decoration: none;
+    font-size: 20px;
+    display: block; /*Para ponerlo en columna*/
+    padding: 10px;
+    margin: 10px;
+    border: 0;
+    border-radius: 10px;
+    width: 270px;
+}
+
+.session {
+    font-family: "poppins-nav";
+    background-color: rgba(76, 175, 80, 0.8);
+    border: 0;
+    border-radius: 10px;
+    color: #FFFFFF;
+    width: 300px;
+    text-align: center;
+    padding: 13px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.contra {
+    color: #FFFFFF;
+    text-align: center; /* Centra el texto del enlace */
+    width: 100%;
+}
+
+.session:hover {
+    background-color: rgba(56, 142, 60, 0.8); 
+}
+
+.account {
+    font-family: "poppins-nav";
+    background-color: rgba(229, 127, 0, 0.8);
+    border: 0;
+    border-radius: 10px;
+    color: #FFFFFF;
+    width: 200px;
+    text-align: center;
+}
+
+.link a:hover {
+    background-color: rgba(191, 111, 0, 0.8);
+}
+
+.error{
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    color: #cc1111;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.link{
+    margin-top: 10px;
+}
+
+.link a{
+    display: inline;
+    justify-content: center;
+    font-family: "poppins-nav";
+    background-color: rgba(229, 127, 0, 0.8);
+    border: 0;
+    border-radius: 10px;
+    color: #FFFFFF;
+    width: 200px;
+    text-align: center;
+    width: 200px;
+}
