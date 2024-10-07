@@ -14,15 +14,37 @@ $is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
 // Crear una instancia de la clase conexion
 $objConexion = new conexion();
 
-// Verificar si el usuario es administrador
+// Si el usuario no es administrador, puedes realizar una consulta para obtener los datos del usuario
+$consulta_usuario = "SELECT nombre, apellido FROM usuario WHERE id = $usuario_id"; // Reemplaza 'id' con el campo correcto
+$usuarios = $objConexion->ejecutarConsulta($consulta_usuario);
+
+$peso_total_usuario = '';
+$nombre_residuos_usuario = [];
+$dato3_usuario = '';
+
+// Si el usuario no es admin, consultar sus datos para mostrarlos
 if (!$is_admin) {
-    die('Acceso denegado: Solo los administradores pueden acceder a esta página.');
+    $consulta_usuario_normal = "SELECT PesoTotal, NombreResiduos, dato3 FROM informacion WHERE usuario_id = $usuario_id LIMIT 1";
+    $resultado_usuario_normal = $objConexion->getConexion()->query($consulta_usuario_normal);
+
+
+
+    if ($resultado_usuario_normal->num_rows > 0) {
+        $usuario_datos = $resultado_usuario_normal->fetch_assoc();
+        $peso_total_usuario = $usuario_datos['PesoTotal'];
+        $nombre_residuos_usuario = json_decode($usuario_datos['NombreResiduos'], true);
+        $dato3_usuario = $usuario_datos['dato3'];
+    } else {
+        echo "<script>alert('No se han encontrado datos para el usuario actual.');</script>";
+    }
 }
 
+// Verificar si el usuario es administrador
 $usuario_encontrado = [];
 $dato3_value = 100; // Valor por defecto de dato3
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+if ($is_admin && $_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['num_documento']) && empty($_POST['usuario_id'])) {
         // Buscar por número de documento
         $num_documento_buscar = $_POST['num_documento'];
@@ -36,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $usuario_id_seleccionado = intval($_POST['usuario_id']);
         $peso_total = $_POST['PesoTotal'];
         $nombre_residuo = $_POST['NombreResiduo'];
-        
+
         // Convertir peso_total a numérico
         $peso_total_numeric = is_numeric($peso_total) ? floatval($peso_total) : 0;
 
@@ -57,8 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } elseif ($peso_total_numeric > $dato3_actual) {
                 // Verificar si el peso total que intenta ingresar es mayor que el tope actual
                 echo "<script>alert('El peso ingresado excede el tope disponible. No puedes ingresar más de $dato3_actual KG.');</script>";
-            }
-            else {
+            } else {
                 // Agregar nuevo residuo si no está ya presente
                 if (!in_array($nombre_residuo, $nombre_residuos_actual_array)) {
                     $nombre_residuos_actual_array[] = $nombre_residuo;
@@ -111,22 +132,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+
 // Consulta para obtener el valor actual de dato3 después de buscar un usuario
 if (!empty($usuario_encontrado)) {
     $usuario_id_encontrado = $usuario_encontrado[0]['id'];
     $consulta_dato3 = "SELECT dato3 FROM informacion WHERE usuario_id = $usuario_id_encontrado LIMIT 1";
     $resultado_dato3 = $objConexion->getConexion()->query($consulta_dato3);
-    
+
     if ($resultado_dato3->num_rows > 0) {
         $fila_dato3 = $resultado_dato3->fetch_assoc();
         $dato3_value = $fila_dato3['dato3']; // Actualizar con el valor de la base de datos
     }
 }
-
-
-// Consulta para obtener todos los usuarios registrados
-$consulta_usuarios = "SELECT * FROM usuario";
-$usuarios = $objConexion->ejecutarConsulta($consulta_usuarios);
 
 ?>
 
@@ -150,7 +167,7 @@ $usuarios = $objConexion->ejecutarConsulta($consulta_usuarios);
             $primer_nombre = explode(' ', $usuario['nombre'])[0];
             $primer_apellido = explode(' ', $usuario['apellido'])[0];
             ?>
-            <h1>Bienvenido <?php echo htmlspecialchars($primer_nombre) . ' ' . htmlspecialchars($primer_apellido); ?></h1>
+            <h1>Bienvenido/a <?php echo htmlspecialchars($primer_nombre) . ' ' . htmlspecialchars($primer_apellido); ?></h1>
         <?php } else { ?>
             <h1>No se encontró el usuario</h1>
         <?php } ?>
@@ -187,50 +204,76 @@ $usuarios = $objConexion->ejecutarConsulta($consulta_usuarios);
             </div>
             <h4>Insertar Información del Usuario</h4>
             <form action="inicio.php" method="post">
-                <?php if (empty($usuario_encontrado)) { ?>
-                    <div class="seleccion">
-                        <label for="num_documento" style="font-weight: bold;">Buscar por número de documento:</label>
-                        <input type="text" name="num_documento" id="num_documento" placeholder="Número de documento" required>
-                        <button type="submit">Buscar</button>
-                    </div>
-                    <?php if (!empty($error_documento)) {
-                        echo $error_documento;
-                    } ?>
-                <?php } else { ?>
-                    <div class="seleccion">
-                        <label for="usuario_id" style="font-weight: bold;">Usuario:</label>
-                        <select name="usuario_id" id="usuario_id" style="appearance: none; padding:5px;">
-                            <option value="<?php echo htmlspecialchars($usuario_encontrado[0]['id']); ?>">
-                                <?php echo htmlspecialchars(explode(' ', $usuario_encontrado[0]['nombre'])[0]) . ' ' . htmlspecialchars(explode(' ', $usuario_encontrado[0]['apellido'])[0]); ?>
-                            </option>
-                        </select>
-                        <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_encontrado[0]['id']); ?>">
-                    </div>
-                    <div class="dato">
-                        <div class="dato1 datos">
-                            <label for="peso" class="form">Peso Total</label><br>
-                            <input type="number" name="PesoTotal" required style="width: 90%;">
+                <?php if ($is_admin) { ?>
+                    <?php if (empty($usuario_encontrado)) { ?>
+                        <div class="seleccion">
+                            <label for="num_documento" style="font-weight: bold;">Buscar por número de documento:</label>
+                            <input type="text" name="num_documento" id="num_documento" placeholder="Número de documento" required>
+                            <button type="submit">Buscar</button>
                         </div>
-                        <div class="dato2 datos">
-                            <label for="nombre_residuo" class="form">Nombre del Residuo</label><br>
-                            <input type="text" name="NombreResiduo" required style="width: 90%;">
+                        <?php if (!empty($error_documento)) {
+                            echo $error_documento;
+                        } ?>
+                    <?php } else { ?>
+                        <div class="seleccion">
+                            <label for="usuario_id" style="font-weight: bold;">Usuario:</label>
+                            <select name="usuario_id" id="usuario_id" style="appearance: none; padding:5px;">
+                                <option value="<?php echo htmlspecialchars($usuario_encontrado[0]['id']); ?>">
+                                    <?php echo htmlspecialchars(explode(' ', $usuario_encontrado[0]['nombre'])[0]) . ' ' . htmlspecialchars(explode(' ', $usuario_encontrado[0]['apellido'])[0]); ?>
+                                </option>
+                            </select>
+                            <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_encontrado[0]['id']); ?>">
                         </div>
-                        <div class="dato3 datos">
-                            <label for="dato3" class="form">Tope de Residuo (100KG)</label><br>
-                            <input type="text" name="dato3" value="<?php echo htmlspecialchars($dato3_value); ?>" readonly style="width: 90%;"><br>
+                        <div class="dato">
+                            <div class="dato1 datos">
+                                <label for="peso" class="form">Peso Total</label><br>
+                                <input type="number" name="PesoTotal" required style="width: 90%;">
+                            </div>
+                            <div class="dato2 datos">
+                                <label for="nombre_residuo" class="form">Nombre del Residuo</label><br>
+                                <input type="text" name="NombreResiduo" required style="width: 90%;">
+                            </div>
+                            <div class="dato3 datos">
+                                <label for="dato3" class="form">Tope de Residuo (100KG)</label><br>
+                                <input type="text" name="dato3" value="<?php echo htmlspecialchars($dato3_value); ?>" readonly style="width: 90%;"><br>
+                            </div>
                         </div>
-                    </div>
-                    <div class="enviar">
-                        <button type="submit">Insertar/Actualizar</button>
-                    </div>
+                        <div class="enviar">
+                            <button type="submit">Insertar/Actualizar</button>
+                            <button type="submit"><a href="inicio.php">Volver</a>Volver</button>
+                        </div>
+                    <?php } ?>
                 <?php } ?>
             </form>
+            <?php if (!$is_admin) { ?>
+                <!-- Si es un usuario normal, mostrar solo su información -->
+                <h4>Datos del Usuario</h4>
+                <div class="dato">
+                    <div class="dato1 datos">
+                        <label for="peso" class="form">Peso Total (KG):</label>
+                        <input type="text" name="PesoTotal" value="<?= htmlspecialchars($peso_total_usuario) ?>" readonly style="width:90%;">
+                    </div>
+                    <div class="dato2 datos">
+                        <label for="dato3" class="form">Residuos Registrados:</label>
+                        <textarea name="NombreResiduos" rows="4" readonly style="max-width: 90%; max-height: 20%; font-family: sans-serif;"><?php
+                                                                                                                                            foreach ($nombre_residuos_usuario as $residuo) {
+                                                                                                                                                echo htmlspecialchars($residuo) . "\n";
+                                                                                                                                            }
+                                                                                                                                            ?></textarea>
+                    </div>
+
+                    <div class="dato3 datos">
+                        <label for="dato3" class="form">Tope Restante (KG):</label>
+                        <input type="text" name="dato3" value="<?= htmlspecialchars($dato3_usuario) ?>" readonly style="width: 90%;">
+                    </div>
+                </div>
+            <?php } ?>
         </div>
     </div>
     <div class="footer">
-            <p>Todos los derechos reservados</p>
-        </div>
-       
+        <p>Todos los derechos reservados</p>
+    </div>
+
     <script src="inicio.js"></script>
 </body>
 

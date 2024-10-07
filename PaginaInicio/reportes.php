@@ -84,19 +84,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Generar Reporte</title>
     <link rel="stylesheet" href="reportes.css">
 </head>
-<body>
-    
+    <div class="main">
     <h1>Generar Reporte Mensual</h1>
     <div class="container">
     <form action="reportes.php" method="post">
-        <div class="centrado">
         <label for="mes">Mes (1-12):</label>
         <input type="number" name="mes" id="mes" min="1" max="12" required><br>
         <label for="anio">Año:</label>
-        <input type="number" name="anio" id="anio" min="2024" required><br>
+        <input type="number" name="anio" id="anio" min="20" required><br>
         <button type="submit">Generar Reporte</button>
-        </div>
+        <a href="inicio.php">Volver a inicio</a>
     </form>
+    </div>
     </div>
 </body>
 </html>

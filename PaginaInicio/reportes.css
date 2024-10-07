@@ -1,13 +1,75 @@
-body{
+body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    box-sizing: border-box;
+    background-image: url("https://cdn.sanity.io/images/osxefs9j/production/606fa56026c03c529276ac1faf0f051f860311cb-1280x853.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurece usando un color de fondo */
+    background-blend-mode: multiply; /* Mezcla el color con la imagen */
+    color: #fff;
+}
+
+.main{
+    border: 3px solid #b7bacd;
+    display: block;
+    min-width: 20%;
+    max-width: 50%;
+    margin: 10px auto;
+    border-radius: 15px;
 }
 
 h1{
     display: flex;
     justify-content: center;
     margin: 10px;
+    background-color: rgb(171, 234, 213);
+    color: #000;
+    border-radius: 10px;
+    font-family: sans-serif;
+}
+
+
+label{
+    display: flex;
+    font-size: 22px;
+}
+
+
+input{
+    font-size: 20px;
+    padding: 4px;
+    border-radius: 10px;
+    border: none;
+    margin: 5px;
+    text-align: center;
+    max-width: 70%;
+    min-width: 50%;
+}
+
+input:focus{
+    outline: none;
+}
+
+form{
+    display: flex;
+    padding: 20px;
+    border-radius: 12px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-width: 40%;
+}
+
+button{
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px;
+    min-width: 55%;
+    font-size: 18px;
+    font-family: sans-serif;
 }
 
 .container{
@@ -15,27 +77,23 @@ h1{
     justify-content: center;
 }
 
-label{
-    display: flex;
-    font-size: 16px;
+form label
+form input {
+    text-align: left;
+    margin: 10px 0;
 }
 
-
-input{
-    display: flex;
-    width: 50%;
-    justify-content: center;
-}
-
-form{
-    display: flex;
-    margin: 18px;
-    border: 2px solid #092121;
-    padding: 10px;
-    border-radius: 12px;
-    justify-content: center;
-}
-
-button{
-    cursor: pointer;
+a{
+    display: block;            /* Hace que ocupe todo el ancho disponible */
+    padding: 5px;
+    margin: 7px;
+    font-family: sans-serif;
+    font-size: 18px;
+    background-color: #f0f0f0; /* Color de fondo del "botón" */
+    color: #000;              /* Color del texto */
+    text-align: center;        /* Centra el texto */
+    text-decoration: none;     /* Quita el subrayado */
+    border-radius: 5px; 
+    border: 1px solid black;
+    outline: 1px solid black;
 }
