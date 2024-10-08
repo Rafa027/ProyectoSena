@@ -22,7 +22,7 @@
             <p class="error"></p>
             
             <button type="submit" class="session">Iniciar Sesion</button>
-            <a href="#" class="contra">¿Olvidaste tu Contraseña?</a>
+            <a href="olvidar_contrasena.php" class="contra">¿Olvidaste tu Contraseña?</a>
             <div class="link">
             <a href="../formulario/formulario registro.php" class="account">Crear Cuenta</a>
             <a href="../index.html">Volver a inicio</a>
